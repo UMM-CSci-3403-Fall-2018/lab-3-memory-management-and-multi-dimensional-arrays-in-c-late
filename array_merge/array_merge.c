@@ -24,8 +24,9 @@ int* array_merge(int num_arrays, int* sizes, int** values){
   }
 
   int *destination = (int*) calloc(size, sizeof(int));
+  i=0;
   j=0;
-  for(i=0;i<size;++i){
+  while(i<size){
       for(int k=0;k<sizes[j];++k){
         destination[i]=values[j][k];
         ++i;
@@ -40,11 +41,15 @@ int* array_merge(int num_arrays, int* sizes, int** values){
 
   int *finalArray = (int*) calloc(finalSize+1, sizeof(int));
   finalArray[0]=finalSize;
+  
+  if(finalSize != 0){
+    finalArray[1] = destination[0];
+  }
 
   j=1;
-  for(i=1;i<finalSize+1;++i){
-    if(destination[i-1]!=destination[i]){
-      finalArray[j] = destination[i-1];
+  for(i=1;i<size;++i){
+    if(finalArray[j] != destination[i]){
+      finalArray[j+1] = destination[i];
       ++j; 
     }
   }
